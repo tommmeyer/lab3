@@ -9,16 +9,18 @@ public class HandScore {
 	private int HiHand;
 	private int LoHand = 0;
 	private ArrayList<Card> Kickers = new ArrayList<Card>();
+	private boolean IsNatural;
 
 	
 	public HandScore() {}
 	
-	public HandScore(int handStrength, int hiHand, int loHand, ArrayList<Card> kickers) {
+	public HandScore(int handStrength, int hiHand, int loHand, ArrayList<Card> kickers, boolean isNatural) {
 		super();
 		HandStrength = handStrength;
 		HiHand = hiHand;
 		LoHand = loHand;
 		Kickers = kickers;
+		IsNatural = isNatural;
 	}
 
 	public int getHandStrength() {
@@ -52,7 +54,13 @@ public class HandScore {
 	public void setKickers(ArrayList<Card> kickers) {
 		Kickers = kickers;
 	}
+	public boolean getIsNatural() {
+		return IsNatural;
+	}
 
+	public void setIsNatural(boolean isNatural) {
+		IsNatural = isNatural;
+	}
 
 	
 	

@@ -23,7 +23,10 @@ public class Hand {
 	void AddToCardsInHand(Card c) {
 		CardsInHand.add(c);
 	}
-
+private void SwapCardsInHand(Card c, Card d){
+	CardsInHand.remove(c);
+	CardsInHand.add(d);
+}
 	public boolean isbScored() {
 		return bScored;
 	}
@@ -121,10 +124,42 @@ public class Hand {
 	 * @return
 	 */
 
-	private static ArrayList<Hand> ExplodeHands(ArrayList<Hand> Hands) {
+	private static ArrayList<Hand> ExplodeHands(Hand hand) {
 		// TODO - Lab3 Implement this
-		return null;
+		Deck deck = new Deck();
+		ArrayList<Card> deckIterate = new ArrayList<Card>();
+		
+		for (Card card: hand.getCardsInHand()){
+			if (card.isbWild()){	
+				Card joker = new Card(eSuit.Joker,eRank.Joker, card.getiCardNbr());
+				hand.SwapCardsInHand(card,joker);
+			}
+		}
+		ArrayList<Hand> explodedHands = new ArrayList<Hand>();
+		for(Card card: hand.getCardsInHand()){
+			if(card.geteSuit() == eSuit.Joker) {
+				for (Card newCard :deck.getDeck()){
+					hand.SwapCardsInHand(card, newCard);
+					explodedHands.add(hand);
+				}
+			}
+		}
+		return explodedHands;
 	}
+	public static boolean isHandFiveOfAKind(Hand h, HandScore hs) {
+
+		boolean isFiveOfAKind = false;
+
+		if (h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank() == h.getCardsInHand()
+				.get(eCardNo.FifthCard.getCardNo()).geteRank()) {
+			isFiveOfAKind = true;
+			hs.setHandStrength(eHandStrength.FiveOfAKind.getHandStrength());
+			hs.setHiHand(h.getCardsInHand().get(eCardNo.FirstCard.getCardNo()).geteRank().getiRankNbr());
+			hs.setLoHand(0);
+		}
+	return isFiveOfAKind;	
+	}
+	
 
 	public static boolean isHandRoyalFlush(Hand h, HandScore hs) {
 

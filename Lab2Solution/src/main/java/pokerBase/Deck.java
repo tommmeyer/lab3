@@ -14,28 +14,42 @@ public class Deck {
 		int iCardNbr = 1;
 		for (eSuit eSuit : eSuit.values()) {
 			for (eRank eRank : eRank.values()) {
-				//TODO Lab3 - Fix this
-				//if (eSuit != eSuit.JOKER) <-- you'll thank me :)
-				//{
+				if (eSuit == eSuit.Joker || eRank== eRank.Joker){
+					continue;
+				}
+				else{
 					deckCards.add(new Card(eSuit, eRank, iCardNbr++));
-				//}
+				
 			}
 			 
+		}
 		}
 		Collections.shuffle(deckCards);
 	}
 	
 	public Deck(int NbrOfJokers) {
 
-		//TODO Lab3 - Implement joker constructor
+		this();
+		int iCardNbr = 53;
+		for (int i=0; i<NbrOfJokers; i++){
+			deckCards.add(new Card(eSuit.Joker, eRank.Joker, iCardNbr++));
+		}
+		Collections.shuffle(deckCards);
 	}
 	
 	
 	public Deck(int NbrOfJokers, ArrayList<Card> Wilds) {
-
-		//TODO Lab3 - Implement joker and wild constructor
-	 
-		
+		this(NbrOfJokers);
+		for (Card wild: Wilds){
+			wild.setbWild(true);
+		}
+	
+	}
+	public int DeckSize(){
+		return deckCards.size();
+	}
+	public ArrayList<Card> getDeck(){
+		return deckCards;
 	}
 	public Card Draw(){
 		//TODO Lab 3 - Implement exception handling for overdraw
