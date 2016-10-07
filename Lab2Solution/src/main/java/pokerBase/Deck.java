@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import pokerEnums.eRank;
 import pokerEnums.eSuit;
+import pokerExceptions.OverDrawException;
 
 public class Deck {
 
@@ -51,8 +52,12 @@ public class Deck {
 	public ArrayList<Card> getDeck(){
 		return deckCards;
 	}
-	public Card Draw(){
-		//TODO Lab 3 - Implement exception handling for overdraw
-		return deckCards.remove(0);
-	}
+	public Card Draw() throws OverDrawException{
+		if (deckCards.size() > 0){
+			return deckCards.remove(0);
+		}
+		else{
+			throw new OverDrawException(this);
+		}
+}
 }

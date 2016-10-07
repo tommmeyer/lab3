@@ -9,7 +9,7 @@ public class HandScore {
 	private int HiHand;
 	private int LoHand = 0;
 	private ArrayList<Card> Kickers = new ArrayList<Card>();
-	private boolean IsNatural;
+	private boolean IsNatural = true;
 
 	
 	public HandScore() {}
@@ -55,11 +55,11 @@ public class HandScore {
 		Kickers = kickers;
 	}
 	public boolean getIsNatural() {
-		return IsNatural;
+		return this.IsNatural;
 	}
 
 	public void setIsNatural(boolean isNatural) {
-		IsNatural = isNatural;
+		this.IsNatural = isNatural;
 	}
 
 	
