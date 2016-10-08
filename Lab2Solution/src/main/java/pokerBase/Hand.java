@@ -10,6 +10,7 @@ import pokerEnums.eCardNo;
 import pokerEnums.eHandStrength;
 import pokerEnums.eRank;
 import pokerEnums.eSuit;
+import pokerExceptions.HandException;
 import pokerExceptions.TieException;
 
 public class Hand {
@@ -59,15 +60,12 @@ private void SwapCardsInHand(Card c, Card d){
 	static Hand EvaluateHand(Hand h) throws Exception {
 
 		// Sort the colleciton (by hand rank)
-		Collections.sort(h.getCardsInHand());
-
-		// TODO - Lab 3 Here's the code to throw the HandException
+		Collections.sort(h.getCardsInHand(), Card.CardRank);
 		
 		  if (h.getCardsInHand().size() != 5) { 
-			  throw new HandException(h,eHandExceptionType.ShortHand); 
+			  throw new HandException(h); 
 			  }
 		 
-
 		ArrayList<Hand> ExplodedHands = new ArrayList<Hand>();
 		ExplodedHands = ExplodeHands(h);
 		
@@ -114,8 +112,6 @@ private void SwapCardsInHand(Card c, Card d){
 			}
 		}
 
-		// TODO - Lab 3. ExplodedHands has a bunch of hands.
-		// Either 1, 52, 2
 		return ExplodedHands.get(0);
 	}
 
@@ -147,8 +143,8 @@ private static ArrayList<Hand> ExplodeHands(Hand hand) {
 		}
 		ArrayList<Hand> explodedHands = new ArrayList<Hand>();
 		for(Card card: hand.getCardsInHand()){
-			if(card.geteSuit() == eSuit.Joker){
-				hand.getHs().setIsNatural(false);
+			if(card.geteSuit().equals(eSuit.Joker)){
+				//hand.getHs().setIsNatural(false);
 				for (Card newCard :deck.getDeck()){
 					hand.SwapCardsInHand(card, newCard);
 					explodedHands.add(hand);

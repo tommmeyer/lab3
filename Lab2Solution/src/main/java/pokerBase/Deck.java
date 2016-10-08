@@ -42,9 +42,12 @@ public class Deck {
 	public Deck(int NbrOfJokers, ArrayList<Card> Wilds) {
 		this(NbrOfJokers);
 		for (Card wild: Wilds){
-			wild.setbWild(true);
+			for(Card card: getDeck()){
+				if (wild.geteRank().equals(card.geteRank()) && wild.geteSuit().equals(card.geteSuit())){
+					card.setbWild(true);
+				}
+			}
 		}
-	
 	}
 	public int DeckSize(){
 		return deckCards.size();

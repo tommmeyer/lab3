@@ -34,13 +34,13 @@ public class Hand_Test {
 	}
 
 	@Test
-	public void TestRoyalFlush() {
+	public void TestNaturalRoyalFlush() {
 		Hand h = new Hand();
-		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.TEN,1));
-		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.JACK,1));
-		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.QUEEN,1));
-		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.KING,1));
-		h.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.ACE,1));
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.TEN,1));
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.JACK,1));
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.QUEEN,1));
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.KING,1));
+		h.AddToCardsInHand(new Card(eSuit.HEARTS, eRank.ACE,1));
 		
 		try {
 			h = Hand.EvaluateHand(h);
@@ -50,6 +50,22 @@ public class Hand_Test {
 	
 		assertTrue(h.getHs().getHandStrength() == eHandStrength.RoyalFlush.getHandStrength());
 		assertTrue(h.getHs().getHiHand() == eRank.ACE.getiRankNbr());
+		
+		Hand hh = new Hand();
+		hh.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.TEN,1));
+		hh.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.JACK,1));
+		hh.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.QUEEN,1));
+		hh.AddToCardsInHand(new Card(eSuit.CLUBS, eRank.KING,1));
+		hh.AddToCardsInHand(new Card(eSuit.Joker, eRank.Joker,1));
+		
+		try {
+			hh = Hand.EvaluateHand(hh);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		assertTrue(hh.getHs().getHandStrength() == eHandStrength.RoyalFlush.getHandStrength());
+		assertFalse(hh.getHs().getHiHand() == eRank.TEN.getiRankNbr());
 		
 	}
 	@Test
